@@ -24,4 +24,6 @@ pnpm run build
 You can preview the production build with `pnpm run preview`.
 
 ## Todo
-- Install an [adapter](https://kit.svelte.dev/docs/adapters) 
+
+- Setup [daisyUI](https://daisyui.com/docs/install/)
+- Install an [adapter](https://kit.svelte.dev/docs/adapters)
