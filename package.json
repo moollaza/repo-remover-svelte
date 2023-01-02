@@ -16,6 +16,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
+		"@poppanator/sveltekit-svg": "^2.0.2",
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -41,6 +42,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
-		"@fontsource/inter": "^4.5.14"
+		"@fontsource/inter": "^4.5.14",
+		"dayjs": "^1.11.7"
 	}
 }
