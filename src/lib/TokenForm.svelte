@@ -1,17 +1,17 @@
 <script>
-	import { accessToken, ghRepos, ghViewer } from "$lib/state";
-	import { buildUserQuery } from "$lib/graphql";
-	import { constants } from "$lib/constants";
+	import { accessToken, ghRepos, ghViewer } from '$lib/state';
+	import { buildUserQuery } from '$lib/graphql';
+	import { constants } from '$lib/constants';
 
-	const API = "https://api.github.com/graphql";
+	const API = 'https://api.github.com/graphql';
 
 	let isValid = false;
 	let hasError = false;
-	let message = "";
+	let message = '';
 
 	let isVerifiedToken = false;
 
-	let value = $accessToken;
+	let value = ''; // $accessToken;
 
 	$: onChange(value);
 
@@ -20,19 +20,19 @@
 	}
 
 	function onChange() {
-		if (!value || value.length !== 40) {
+		if (!value || value.length !== 40 || isVerifiedToken) {
 			$accessToken = value;
 			isValid = false;
 			hasError = true;
 			isVerifiedToken = false;
-			message = "Please enter valid access token";
+			message = 'Please enter valid access token';
 		}
 
 		if (value?.length == 40) {
 			$accessToken = value;
 			isValid = true;
 			hasError = false;
-			message = "Success! This token is valid";
+			message = 'Success! This token is valid';
 		}
 
 		if (isValid) {
@@ -41,26 +41,26 @@
 	}
 
 	async function checkToken() {
-		console.log("CHECKING TOKEN");
+		console.log('CHECKING TOKEN');
 
 		const options = {
-			method: "post",
+			method: 'post',
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 				Authorization: `Bearer ${value}`,
-				"User-Agent": "Repo Remover",
+				'User-Agent': 'Repo Remover'
 			},
-			body: buildUserQuery(),
+			body: buildUserQuery()
 		};
 
 		let res = await fetch(API, options);
-		let data = await res.json();
+		let json = await res.json();
 
-		console.log("API RESPONSE", data);
+		console.log('API RESPONSE', json);
 
-		if (data?.data?.viewer?.login) {
+		if (json?.data?.viewer?.login) {
 			isVerifiedToken = true;
-			$ghViewer = data.data.viewer;
+			$ghViewer = json.data.viewer;
 		} else {
 			isVerifiedToken = false;
 		}
@@ -95,9 +95,7 @@
 			/>
 			{#if hasError}
 				<!-- ERROR ICON -->
-				<div
-					class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
-				>
+				<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
 					<!-- Heroicon name: solid/exclamation-circle -->
 					<svg
 						class="h-5 w-5 text-red-500"
@@ -116,9 +114,7 @@
 			{/if}
 			{#if isVerifiedToken}
 				<!-- ERROR ICON -->
-				<div
-					class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
-				>
+				<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
 					<!-- Heroicon name: solid/exclamation-circle -->
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

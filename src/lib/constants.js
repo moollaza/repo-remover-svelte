@@ -1,3 +1,5 @@
+import { PUBLIC_TOKEN } from "$env/static/public";
+
 export const constants = {
-	devToken: import.meta.env.VITE_ACCESS_TOKEN || "",
+	devToken: PUBLIC_TOKEN || "",
 };

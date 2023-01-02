@@ -1,47 +1,38 @@
 <script>
-	import { onMount } from "svelte";
-	import dayjs from "dayjs";
-	import relativeTime from "dayjs/plugin/relativeTime";
+	import { onMount } from 'svelte';
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime';
 	dayjs.extend(relativeTime);
 
-	import { ghViewer } from "$lib/state";
+	import { ghViewer } from '$lib/state';
 
-	import {
-		ArrowUp,
-		ArrowDown,
-		SadFace,
-		Search,
-		Archive,
-		Trash,
-	} from "$lib/assets";
+	import { ArrowUp, ArrowDown, SadFace, Search, Archive, Trash } from '$lib/assets';
 
 	export let items;
 	export let columns;
 
 	const repoTypes = [
-		{ label: "Personal", field: "isPersonal" },
-		{ label: "Organization", field: "isInOrganization" },
-		{ label: "Private", field: "isPrivate" },
-		{ label: "Archived", field: "isArchived" },
-		{ label: "Forked", field: "isFork" },
-		{ label: "Template", field: "isTemplate" },
+		{ label: 'Personal', field: 'isPersonal' },
+		{ label: 'Organization', field: 'isInOrganization' },
+		{ label: 'Private', field: 'isPrivate' },
+		{ label: 'Archived', field: 'isArchived' },
+		{ label: 'Forked', field: 'isFork' },
+		{ label: 'Template', field: 'isTemplate' }
 	];
 
-	const actions = ["Archive", "Delete"];
+	const actions = ['Archive', 'Delete'];
 
 	let sortColumnId = 1;
-	let sortDirection = "DESC";
-	let perPage = "5";
-	let repoAction = "archive";
+	let sortDirection = 'DESC';
+	let perPage = '5';
+	let repoAction = 'archive';
 	let allRepoTypeFilters = repoTypes.map((repoType) => repoType.field);
 	let repoTypeFilter = allRepoTypeFilters;
-	let searchFilter = "";
+	let searchFilter = '';
 	let selectAll = false;
 	let selected = [];
 
-	$: disabledFilters = allRepoTypeFilters.filter(
-		(x) => !repoTypeFilter.includes(x)
-	);
+	$: disabledFilters = allRepoTypeFilters.filter((x) => !repoTypeFilter.includes(x));
 	$: sortColumn = columns[sortColumnId];
 	$: displayItems = sortItems(
 		filterItems(items, searchFilter, repoTypeFilter, selected),
@@ -60,10 +51,7 @@
 			// If any unchecked filters match, hide repo
 			let hideRepo = disabledFilters.some((filter) => item[filter] === true);
 
-			if (
-				disabledFilters.includes("isPersonal") &&
-				item["isInOrganization"] !== true
-			) {
+			if (disabledFilters.includes('isPersonal') && item['isInOrganization'] !== true) {
 				hideRepo = true;
 			}
 
@@ -72,7 +60,7 @@
 			}
 
 			if (searchFilter) {
-				const regex = new RegExp(searchFilter.trim(), "i");
+				const regex = new RegExp(searchFilter.trim(), 'i');
 				return regex.test(item.name) || regex.test(item.description);
 			}
 
@@ -90,7 +78,7 @@
 		}
 
 		return _items.slice().sort((a, b) => {
-			if (sortDirection === "ASC") {
+			if (sortDirection === 'ASC') {
 				return a[sortColumn.field] > b[sortColumn.field] ? 1 : -1;
 			} else {
 				return a[sortColumn.field] > b[sortColumn.field] ? -1 : 1;
@@ -100,13 +88,13 @@
 
 	function handleSortColumn(id) {
 		if (sortColumnId === id) {
-			if (sortDirection === "DESC") {
-				sortDirection = "ASC";
+			if (sortDirection === 'DESC') {
+				sortDirection = 'ASC';
 			} else {
-				sortDirection = "DESC";
+				sortDirection = 'DESC';
 			}
 		} else {
-			sortDirection = "ASC";
+			sortDirection = 'ASC';
 			sortColumnId = id;
 		}
 	}
@@ -115,19 +103,19 @@
 		let badges = [];
 
 		if (repo.isPrivate === true) {
-			badges.push({ label: "Private", icon: "" });
+			badges.push({ label: 'Private', icon: '' });
 		}
 		if (repo.isFork === true) {
-			badges.push({ label: "Forked", icon: "" });
+			badges.push({ label: 'Forked', icon: '' });
 		}
 		if (repo.isArchived === true) {
-			badges.push({ label: "Archived", icon: "" });
+			badges.push({ label: 'Archived', icon: '' });
 		}
 		if (repo.isTemplate === true) {
-			badges.push({ label: "Template", icon: "" });
+			badges.push({ label: 'Template', icon: '' });
 		}
 		if (repo.isInOrganization === true) {
-			badges.push({ label: "Organization Owned", icon: "" });
+			badges.push({ label: 'Organization Owned', icon: '' });
 		}
 
 		return badges;
@@ -150,9 +138,7 @@
 <div class="grid md:grid-cols-6 grid-rows-2 gap-4 pb-4">
 	<!-- TABLE FILTERS -->
 	<fieldset class="col-span-full">
-		<legend class="block mb-1 text-sm font-medium text-gray-700"
-			>Repo Type</legend
-		>
+		<legend class="block mb-1 text-sm font-medium text-gray-700">Repo Type</legend>
 		<div class="flex gap-x-6 gap-y-3">
 			{#each repoTypes as filter}
 				<div class="inline-flex items-start">
@@ -168,9 +154,8 @@
 						/>
 					</div>
 					<div class="ml-2 text-sm">
-						<label
-							for="repo-type-{filter.label.toLowerCase()}"
-							class="font-medium text-gray-700">{filter.label}</label
+						<label for="repo-type-{filter.label.toLowerCase()}" class="font-medium text-gray-700"
+							>{filter.label}</label
 						>
 					</div>
 				</div>
@@ -180,9 +165,7 @@
 
 	<!-- PER PAGE -->
 	<div class="col-span-2">
-		<label for="perPage" class="block text-sm font-medium text-gray-700"
-			>Repos Per Page</label
-		>
+		<label for="perPage" class="block text-sm font-medium text-gray-700">Repos Per Page</label>
 		<select
 			id="perPage"
 			name="perPage"
@@ -199,13 +182,9 @@
 
 	<!-- SEARCH FILTER -->
 	<div class="col-span-2">
-		<label for="searchFilter" class="block text-sm font-medium text-gray-700"
-			>Search Term</label
-		>
+		<label for="searchFilter" class="block text-sm font-medium text-gray-700">Search Term</label>
 		<div class="mt-1 relative rounded-md shadow-sm ">
-			<div
-				class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-			>
+			<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 				<span class="h-5 w-5">
 					<Search />
 				</span>
@@ -223,9 +202,7 @@
 
 	<!-- EDIT TYPE -->
 	<div class="col-span-2">
-		<label for="perPage" class="block text-sm font-medium text-gray-700"
-			>Repo Action</label
-		>
+		<label for="perPage" class="block text-sm font-medium text-gray-700">Repo Action</label>
 		<select
 			id="perPage"
 			name="perPage"
@@ -243,14 +220,14 @@
 		<button
 			type="button"
 			class="flex w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-			class:isArchive={repoAction === "archive"}
-			class:isDelete={repoAction === "delete"}
+			class:isArchive={repoAction === 'archive'}
+			class:isDelete={repoAction === 'delete'}
 			disabled={!selected.length}
 		>
 			<span class="h-6 w-6 mr-2">
-				<svelte:component this={repoAction === "archive" ? Archive : Trash} />
+				<svelte:component this={repoAction === 'archive' ? Archive : Trash} />
 			</span>
-			<span class="capitalize">{repoAction} {selected.length || ""} Repos</span>
+			<span class="capitalize">{repoAction} {selected.length || ''} Repos</span>
 		</button>
 	</div>
 </div>
@@ -278,7 +255,7 @@
 									class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
 									class:active={i === sortColumnId}
 								>
-									<div
+									<button
 										class="inline-flex h-100 items-center cursor-pointer"
 										on:click={() => {
 											handleSortColumn(i);
@@ -287,12 +264,10 @@
 										{column.label}
 										<span class="h-6 w-6 ml-1">
 											{#if i === sortColumnId}
-												<svelte:component
-													this={sortDirection === "DESC" ? ArrowDown : ArrowUp}
-												/>
+												<svelte:component this={sortDirection === 'DESC' ? ArrowDown : ArrowUp} />
 											{/if}
 										</span>
-									</div>
+									</button>
 								</th>
 							{/each}
 						</tr>
@@ -312,9 +287,8 @@
 						{/if}
 						{#each displayItems as item, i (item.id)}
 							<tr
-								class:cursor-not-allowed={item.isArchived &&
-									repoAction === "archive"}
-								class:opacity-50={item.isArchived && repoAction === "archive"}
+								class:cursor-not-allowed={item.isArchived && repoAction === 'archive'}
+								class:opacity-50={item.isArchived && repoAction === 'archive'}
 							>
 								<td class="px-6 py-4 w-5">
 									<input
@@ -322,7 +296,7 @@
 										class="cursor-pointer disabled:cursor-not-allowed"
 										bind:group={selected}
 										value={item.id}
-										disabled={repoAction === "archive" && item.isArchived}
+										disabled={repoAction === 'archive' && item.isArchived}
 									/>
 								</td>
 								<td class="px-6 py-4 text-sm text-gray-500">
@@ -331,6 +305,7 @@
 										<a
 											href={item.url}
 											target="_blank"
+											rel="noreferrer"
 											class="text-blue-600 font-bold text-md"
 										>
 											{item.name}
@@ -338,9 +313,7 @@
 
 										<!-- REPO OWNER -->
 										<p class="-mt-4 mb-3 text-italic">
-											Owned by <a href={item.owner.url} class="text-blue-500"
-												>{item.owner.login}</a
-											>
+											Owned by <a href={item.owner.url} class="text-blue-500">{item.owner.login}</a>
 										</p>
 
 										<!-- BADGES -->
@@ -348,7 +321,7 @@
 											{#each getBadges(item) as badge}
 												<span
 													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
-													class:bg-yellow-300={badge.label === "Archived"}
+													class:bg-yellow-300={badge.label === 'Archived'}
 												>
 													{badge.label}
 												</span>
@@ -357,15 +330,12 @@
 
 										<!-- REPO DESCRIPTION -->
 										<p class="">
-											{item.description || ""}
+											{item.description || ''}
 										</p>
 									</div>
 								</td>
-								<td
-									class="w-44 px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"
-								>
-									<span
-										title={dayjs(item.updatedAt).format("MMMM D, YYYY h:mm A")}
+								<td class="w-44 px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+									<span title={dayjs(item.updatedAt).format('MMMM D, YYYY h:mm A')}
 										>{dayjs().to(item.updatedAt)}</span
 									>
 								</td>
