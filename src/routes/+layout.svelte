@@ -1,10 +1,10 @@
 <script>
 	import '../app.postcss';
-	import Header from './Header.svelte';
+	import Nav from '$lib/Nav.svelte';
 </script>
 
 <div class="flex flex-col min-h-screen">
-	<Header />
+	<Nav />
 
 	<main class="flex-1 flex flex-col px-3 py-4 w-100 max-w-5xl border-box ">
 		<slot />
