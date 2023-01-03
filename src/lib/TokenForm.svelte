@@ -79,14 +79,16 @@
 	}
 </script>
 
-<div>
+<form action="#">
 	<label for="personal-access-token" class="flex items-end text-sm font-medium text-gray-700"
 		>Please enter your Personal Access Token
-		<button
-			class="flex items-center text-xs ml-8 text-center text-white bg-gray-800 rounded px-2"
-			on:click={fillToken}>Fill Token</button
-		></label
-	>
+		{#if dev}
+			<button
+				class="flex items-center text-xs ml-8 text-center text-white bg-gray-800 rounded px-2"
+				on:click={fillToken}>Fill Token</button
+			>
+		{/if}
+	</label>
 	<div class="mt-1 relative rounded-md shadow-sm w-96">
 		<input
 			type="text"
@@ -156,18 +158,21 @@
 			{message}
 		</p>
 	{/if}
-</div>
+</form>
 
 <div class="mt-8">
-	<button
-		class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-		disabled={!isVerifiedToken}
-	>
-		Continue
-	</button>
+	{#if isVerifiedToken}
+		<a class="button" href="/details" data-sveltekit-preload-code="eager">Continue</a>
+	{:else}
+		<button class="button" disabled>Continue</button>
+	{/if}
 </div>
 
 <style lang="postcss">
+	.button {
+		@apply inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+	}
+
 	.input-error {
 		@apply border-red-300  focus:ring-red-500 focus:border-red-500;
 	}
