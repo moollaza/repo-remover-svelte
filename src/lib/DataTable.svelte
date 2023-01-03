@@ -1,15 +1,13 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	dayjs.extend(relativeTime);
 
-	import { ghViewer } from '$lib/state';
-
 	import { ArrowUp, ArrowDown, SadFace, Search, Archive, Trash } from '$lib/assets';
 
-	export let items;
-	export let columns;
+	export let items: Array<any>;
+	export let columns: Array<any>;
 
 	const repoTypes = [
 		{ label: 'Personal', field: 'isPersonal' },
@@ -184,7 +182,7 @@
 	<div class="col-span-2">
 		<label for="searchFilter" class="block text-sm font-medium text-gray-700">Search Term</label>
 		<div class="mt-1 relative rounded-md shadow-sm ">
-			<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+			<div class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
 				<span class="h-5 w-5">
 					<Search />
 				</span>
@@ -193,7 +191,7 @@
 				type="text"
 				name="searchFilter"
 				id="searchFilter"
-				class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+				class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 py-2 sm:text-sm border-gray-300 rounded-md"
 				placeholder="Enter search term"
 				bind:value={searchFilter}
 			/>

@@ -11,7 +11,7 @@
 
 	let STATE = 'INIT';
 
-	async function getRepos(login: string) {
+	async function getRepos(accessToken: string, login: string) {
 		if (!login) {
 			return [];
 		}
@@ -22,7 +22,7 @@
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${$accessToken}`
+				Authorization: `Bearer ${accessToken}`
 			},
 			body: buildRepoQuery({ login })
 		};
@@ -45,12 +45,12 @@
 	}
 
 	onMount(function () {
-		if (!$accessToken && !$ghViewer?.login) {
+		if (!$accessToken || !$ghViewer?.login) {
 			STATE = 'REDIRECTING';
 			goto('/');
 		} else {
 			STATE = 'LOADING';
-			getRepos($ghViewer?.login);
+			getRepos($accessToken, $ghViewer?.login);
 		}
 	});
 </script>
@@ -72,7 +72,6 @@
 			<p>Fetching repos from GitHub...</p>
 		{:else if STATE === 'ERROR'}
 			<p>Error</p>
-			<p>{data?.data?.message}</p>
 		{:else if STATE === 'LOADED'}
 			<DataTable
 				items={$ghRepos.nodes}
