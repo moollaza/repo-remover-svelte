@@ -13,7 +13,7 @@
 	</header>
 
 	<section class="py-6">
-		<ul class="divide-y divide-gray-200">
+		<ul class="">
 			<li class="py-4">
 				<h2 class="text-md leading-6 font-semibold text-gray-900 mb-3">Step 1: Get Access Token</h2>
 
@@ -21,11 +21,11 @@
 					href="https://github.com/settings/tokens/new?scopes=delete_repo,repo&description=Repo%20Remover%20Token"
 					target="_blank"
 					rel="noreferrer"
-					class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+					class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-6 w-6 mr-2"
+						class="h-4 w-4 mr-2"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
