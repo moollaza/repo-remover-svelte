@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	import { accessToken, ghRepos, ghViewer } from '$lib/state';
 	import { buildRepoQuery } from '$lib/graphql';
@@ -7,10 +8,14 @@
 	import DataTable from '$lib/DataTable.svelte';
 
 	const API = 'https://api.github.com/graphql';
-	let loading = true;
-	let hasError = false;
 
-	async function getRepos() {
+	let STATE = 'INIT';
+
+	async function getRepos(login: string) {
+		if (!login) {
+			return [];
+		}
+
 		console.log('GETTING REPOS');
 
 		const options = {
@@ -19,57 +24,65 @@
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${$accessToken}`
 			},
-			body: buildRepoQuery({ login: $ghViewer?.login || 'moollaza' })
+			body: buildRepoQuery({ login })
 		};
 
 		let res = await fetch(API, options);
-		let data = await res.json();
+		let json = await res.json();
 
-		console.log('GH REPOS', data?.data);
+		console.log('GH REPOS', json?.data);
 
-		if (data?.data?.message) {
-			loading = false;
-			hasError = true;
+		if (json?.data?.message) {
+			STATE = 'ERROR';
 		}
 
-		if (data?.data?.user) {
-			loading = false;
-			hasError = false;
+		if (json?.data?.user) {
+			STATE = 'LOADED';
 
-			$ghViewer = data?.data?.user;
-			$ghRepos = data?.data?.user?.repositories;
+			$ghViewer = json?.data?.user;
+			$ghRepos = json?.data?.user?.repositories;
 		}
 	}
 
 	onMount(function () {
-		getRepos();
+		if (!$accessToken && !$ghViewer?.login) {
+			STATE = 'REDIRECTING';
+			goto('/');
+		} else {
+			STATE = 'LOADING';
+			getRepos($ghViewer?.login);
+		}
 	});
 </script>
 
 <section class="py-12">
-	<header class="flex items-center">
-		<a href={`https://github.com/${$ghViewer.login}`}>
-			<img class="mr-5 inline-block h-14 w-14 rounded-full" src={$ghViewer.avatarUrl} alt="" />
-		</a>
-		<h1 class="text-2xl">Hi, {$ghViewer.login}!</h1>
-	</header>
-	<!-- <p class="text-xs">{JSON.stringify($ghViewer)}</p> -->
+	{#if $ghViewer?.login}
+		<header class="flex items-center">
+			<a href={`https://github.com/${$ghViewer.login}`}>
+				<img class="mr-5 inline-block h-14 w-14 rounded-full" src={$ghViewer.avatarUrl} alt="" />
+			</a>
+			<h1 class="text-2xl">Hi, {$ghViewer.login}!</h1>
+		</header>
+	{/if}
 
-	<section class="pt-12">
-		{#if loading}
-			<p>Loading...</p>
-		{:else if $ghRepos}
-			<section>
-				<DataTable
-					items={$ghRepos.nodes}
-					columns={[
-						{ label: 'Name', field: 'name' },
-						{ label: 'Last Updated', field: 'updatedAt' }
-					]}
-				/>
-			</section>
+	<div class="pt-12">
+		{#if STATE === 'REDIRECTING'}
+			<p>Missing credentials. Redirecting to homepage</p>
+		{:else if STATE === 'LOADING'}
+			<p>Fetching repos from GitHub...</p>
+		{:else if STATE === 'ERROR'}
+			<p>Error</p>
+			<p>{data?.data?.message}</p>
+		{:else if STATE === 'LOADED'}
+			<DataTable
+				items={$ghRepos.nodes}
+				columns={[
+					{ label: 'Name', field: 'name' },
+					{ label: 'Last Updated', field: 'updatedAt' }
+				]}
+			/>
 		{/if}
-	</section>
+	</div>
 </section>
 
 <style>
