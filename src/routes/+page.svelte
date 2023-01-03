@@ -13,7 +13,7 @@
 	</header>
 
 	<section class="py-6">
-		<ul class="">
+		<ul>
 			<li class="py-4">
 				<h2 class="text-md leading-6 font-semibold text-gray-900 mb-3">Step 1: Get Access Token</h2>
 
