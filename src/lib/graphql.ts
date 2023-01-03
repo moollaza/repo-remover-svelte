@@ -52,28 +52,23 @@ query {
 }`;
 
 export function buildUserQuery() {
-  return JSON.stringify({
-    query: viewerQuery,
-  });
+	return JSON.stringify({
+		query: viewerQuery
+	});
 }
 
-export function buildRepoQuery({ login, after }) {
-  if (!login) {
-    throw new Error("Login name required for API call");
-  }
+interface RepoQueryParams {
+	login: string;
+	after?: string;
+}
 
-  const variables = {};
+export function buildRepoQuery(queryParams: RepoQueryParams) {
+	if (!queryParams.login) {
+		throw new Error('Login name required for API call');
+	}
 
-  if (login) {
-    variables.login = login;
-  }
-
-  if (after) {
-    variables.after = after;
-  }
-
-  return JSON.stringify({
-    query: repoQuery,
-    variables: variables,
-  });
+	return JSON.stringify({
+		query: repoQuery,
+		variables: queryParams
+	});
 }
