@@ -6,10 +6,12 @@
 	<title>RepoRemover - The fastest way to archive or delete multiple GitHub repos.</title>
 </svelte:head>
 
-<section class="py-12">
+<section>
 	<header>
-		<h1 class="text-2xl leading-5 font-semibold text-gray-900">RepoRemover</h1>
-		<p>The <b>fastest</b> way to archive or delete multiple GitHub repos.</p>
+		<h1 class="text-5xl tracking-tight font-semibold text-gray-900">RepoRemover</h1>
+		<p class="mt-4 text-lg tracking-tight">
+			Archive and delete multiple GitHub repos, <i class="font-semibold">super fast</i>.
+		</p>
 	</header>
 
 	<section class="py-6">
