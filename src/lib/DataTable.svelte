@@ -23,6 +23,7 @@
 	let sortColumnId = 1;
 	let sortDirection = 'DESC';
 	let perPage = '5';
+	let currentPage = 1;
 	let repoAction = 'archive';
 	let allRepoTypeFilters = repoTypes.map((repoType) => repoType.field);
 	let repoTypeFilter = allRepoTypeFilters;
@@ -162,7 +163,9 @@
 	</fieldset>
 
 	<!-- PER PAGE -->
-	<div class="col-span-2">
+
+	<!-- TODO: Implement -->
+	<!-- <div class="col-span-2">
 		<label for="perPage" class="block text-sm font-medium text-gray-700">Repos Per Page</label>
 		<select
 			id="perPage"
@@ -176,7 +179,7 @@
 			<option value="20">20 Per Page</option>
 			<option value={false}>Show All</option>
 		</select>
-	</div>
+	</div> -->
 
 	<!-- SEARCH FILTER -->
 	<div class="col-span-2">
@@ -200,7 +203,7 @@
 
 	<!-- EDIT TYPE -->
 	<div class="col-span-2">
-		<label for="perPage" class="block text-sm font-medium text-gray-700">Repo Action</label>
+		<label for="perPage" class="block text-sm font-medium text-gray-700">Select Repo Action</label>
 		<select
 			id="perPage"
 			name="perPage"
@@ -211,24 +214,26 @@
 			<option value="delete">Delete</option>
 		</select>
 	</div>
-</div>
 
-<div class="grid md:grid-cols-3 gap-4 pb-4 justify-end">
-	<div class="col-span-1 col-start-3">
+	<div class="col-span-2 self-end">
 		<button
 			type="button"
-			class="flex w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+			class="mt-1 flex w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
 			class:isArchive={repoAction === 'archive'}
 			class:isDelete={repoAction === 'delete'}
 			disabled={!selected.length}
 		>
-			<span class="h-6 w-6 mr-2">
+			<span class="h-5 w-5 mr-2">
 				<svelte:component this={repoAction === 'archive' ? Archive : Trash} />
 			</span>
-			<span class="capitalize">{repoAction} {selected.length || ''} Repos</span>
+			<span class="capitalize"
+				>{repoAction} {selected.length || ''} Selected Repo{selected.length === 1 ? '' : 's'}</span
+			>
 		</button>
 	</div>
 </div>
+
+<div class="grid md:grid-cols-3 gap-4 pb-4 justify-end" />
 
 <!-- TABLE -->
 <div class="flex flex-col">
