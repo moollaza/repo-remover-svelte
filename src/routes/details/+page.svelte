@@ -55,7 +55,7 @@
 	});
 </script>
 
-<section class="py-12">
+<section>
 	{#if $ghViewer?.login}
 		<header class="flex items-center">
 			<a href={`https://github.com/${$ghViewer.login}`}>

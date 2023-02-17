@@ -3,15 +3,24 @@
 	import Nav from '$lib/Nav.svelte';
 </script>
 
-<div class="flex flex-col min-h-screen">
+<div class="">
 	<Nav />
 
-	<main class="flex-1 flex flex-col px-3 py-4 w-100 max-w-5xl border-box ">
+	<main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-12">
 		<slot />
 	</main>
 
-	<footer class="flex flex-col justify-center items-center p-3">
-		<p>RepoRemover by Zaahir Moolla &middot; Copyright &copy; 2023</p>
+	<footer class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="flex flex-col border-t border-slate-400/10 py-10 ">
+			<p class="text-sm text-slate-500">
+				Copyright &copy; 2023 <a
+					class="underline underline-offset-4 hover:text-blue-600"
+					target="_blank"
+					rel="noreferrer"
+					href="https://zaahir.ca">Zaahir Moolla</a
+				>
+			</p>
+		</div>
 	</footer>
 </div>
 

@@ -2,8 +2,8 @@
 	import { page } from '$app/stores';
 </script>
 
-<nav class="bg-white shadow px-3 ">
-	<div class="container">
+<nav class="bg-white shadow">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex justify-between h-16">
 			<div class="flex">
 				<div class="flex-shrink-0 flex items-center">
@@ -27,6 +27,8 @@
 					<a href="/about" class:current={$page.url.pathname === '/about'}> About </a>
 				</div>
 			</div>
+			<!-- Right Side -->
+			<!-- <div class="flex"></div> -->
 		</div>
 	</div>
 </nav>
