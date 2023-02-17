@@ -137,7 +137,7 @@
 <div class="grid md:grid-cols-6 grid-rows-2 gap-4 pb-4">
 	<!-- TABLE FILTERS -->
 	<fieldset class="col-span-full">
-		<legend class="block mb-1 text-sm font-medium text-gray-700">Repo Type</legend>
+		<legend class="block mb-1 text-sm font-semibold text-gray-700">Repo Type</legend>
 		<div class="flex gap-x-6 gap-y-3">
 			{#each repoTypes as filter}
 				<div class="inline-flex items-start">
@@ -166,7 +166,7 @@
 
 	<!-- TODO: Implement -->
 	<!-- <div class="col-span-2">
-		<label for="perPage" class="block text-sm font-medium text-gray-700">Repos Per Page</label>
+		<label for="perPage" class="block text-sm font-semibold text-gray-700">Repos Per Page</label>
 		<select
 			id="perPage"
 			name="perPage"
@@ -183,7 +183,7 @@
 
 	<!-- SEARCH FILTER -->
 	<div class="col-span-2">
-		<label for="searchFilter" class="block text-sm font-medium text-gray-700">Search Term</label>
+		<label for="searchFilter" class="block text-sm font-semibold text-gray-700">Search Term</label>
 		<div class="mt-1 relative rounded-md shadow-sm ">
 			<div class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
 				<span class="h-5 w-5">
@@ -203,7 +203,8 @@
 
 	<!-- EDIT TYPE -->
 	<div class="col-span-2">
-		<label for="perPage" class="block text-sm font-medium text-gray-700">Select Repo Action</label>
+		<label for="perPage" class="block text-sm font-semibold text-gray-700">Select Repo Action</label
+		>
 		<select
 			id="perPage"
 			name="perPage"
