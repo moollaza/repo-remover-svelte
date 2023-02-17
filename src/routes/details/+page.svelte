@@ -59,7 +59,11 @@
 	{#if $ghViewer?.login}
 		<header class="flex items-center">
 			<a href={`https://github.com/${$ghViewer.login}`}>
-				<img class="mr-5 inline-block h-14 w-14 rounded-full" src={$ghViewer.avatarUrl} alt="" />
+				<img
+					class="mr-5 inline-block h-14 w-14 rounded-full bg-gray-800"
+					src={$ghViewer?.avatarUrl}
+					alt=""
+				/>
 			</a>
 			<h1 class="text-2xl">Hi, {$ghViewer.login}!</h1>
 		</header>
