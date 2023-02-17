@@ -79,7 +79,7 @@
 	}
 </script>
 
-<form action="#">
+<div>
 	<label for="personal-access-token" class="flex items-end text-sm font-medium text-gray-700"
 		>Please enter your Personal Access Token
 		{#if dev}
@@ -158,7 +158,7 @@
 			{message}
 		</p>
 	{/if}
-</form>
+	</div>
 
 <div class="mt-8">
 	{#if isVerifiedToken}
