@@ -25,5 +25,5 @@ You can preview the production build with `pnpm run preview`.
 
 ## Todo
 
-- Setup [daisyUI](https://daisyui.com/docs/install/)
+- Consider Skeleton, daisyUI, Flowbite from https://joyofcode.xyz/sveltekit-with-tailwind-css
 - Install an [adapter](https://kit.svelte.dev/docs/adapters)
