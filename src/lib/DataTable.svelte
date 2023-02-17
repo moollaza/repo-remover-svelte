@@ -78,9 +78,9 @@
 
 		return _items.slice().sort((a, b) => {
 			if (sortDirection === 'ASC') {
-				return a[sortColumn.field] > b[sortColumn.field] ? 1 : -1;
+				return a[sortColumn.field].toLowerCase() > b[sortColumn.field].toLowerCase ? 1 : -1;
 			} else {
-				return a[sortColumn.field] > b[sortColumn.field] ? -1 : 1;
+				return a[sortColumn.field].toLowerCase() > b[sortColumn.field].toLowerCase() ? -1 : 1;
 			}
 		});
 	}
