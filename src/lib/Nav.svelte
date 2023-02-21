@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
+	import RandomRepoButton from '$lib/RandomRepoButton.svelte';
 </script>
 
 <nav class="bg-white shadow">
@@ -23,12 +25,16 @@
 					</svg>
 				</div>
 				<div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-					<a href="/" class:current={$page.url.pathname === '/'}> Home </a>
-					<a href="/about" class:current={$page.url.pathname === '/about'}> About </a>
+					<a href="/" class:current={$page.url.pathname === '/'}>Home</a>
+					<a href="/about" class:current={$page.url.pathname === '/about'}>About</a>
 				</div>
 			</div>
 			<!-- Right Side -->
-			<!-- <div class="flex"></div> -->
+			<div class="flex items-center">
+				{#if dev}
+					<RandomRepoButton />
+				{/if}
+			</div>
 		</div>
 	</div>
 </nav>

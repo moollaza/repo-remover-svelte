@@ -26,6 +26,7 @@
 		"eslint": "^8.34.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"octokit": "^2.0.14",
 		"onchange": "^7.1.0",
 		"postcss": "^8.4.21",
 		"postcss-load-config": "^4.0.1",
@@ -40,10 +41,18 @@
 		"vite": "^4.1.1",
 		"vitest": "^0.25.8"
 	},
+	"pnpm": {
+		"overrides": {
+			"@octokit/plugin-retry": "4.1.1"
+		}
+	},
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
 		"@fontsource/inter": "^4.5.15",
-		"dayjs": "^1.11.7"
+		"@octokit/core": "^4.2.0",
+		"@octokit/request": "^6.2.3",
+		"dayjs": "^1.11.7",
+		"isomorphic-fetch": "^3.0.0"
 	}
 }

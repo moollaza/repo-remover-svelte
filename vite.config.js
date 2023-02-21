@@ -9,6 +9,14 @@ const config = {
 	plugins: [sveltekit(), svg()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
+	},
+
+	// Used to solve issues with Octokit
+	// https://github.com/octokit/octokit.js/issues/2126
+	resolve: {
+		alias: {
+			'node-fetch': 'isomorphic-fetch'
+		}
 	}
 };
 
