@@ -28,7 +28,7 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"octokit": "^2.0.14",
 		"onchange": "^7.1.0",
-		"postcss": "^8.4.21",
+		"postcss": "^8.4.31",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.4",
 		"prettier-plugin-svelte": "^2.9.0",
